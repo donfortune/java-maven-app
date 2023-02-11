@@ -38,7 +38,7 @@ pipeline {
             environment{
                 AWS_ACCESS_KEY_ID = credentials('Jenkins_aws_access_key_id')
                 AWS_SECRET_ACCESS_KEY = credentials('Jenkins_aws_secret_access_key')
-                TF_VAR_env-prefix = 'test'
+                TF_VAR_env_prefix = 'test'
             }
             steps{
                 script{
