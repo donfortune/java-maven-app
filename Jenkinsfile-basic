@@ -1,28 +1,41 @@
-#!/usr/bin/env groovy
 
 pipeline {
-    agent none
+    agent any
+   
+
+    parameters {
+        
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'run test')
+        choice(name: 'VERSION', choices: ['1.2.4', '1.3.5', '1.5.0'], description: 'Choose one')
+    }
     stages {
-        stage('build') {
+        
+        stage("build") {
             steps {
-                script {
-                    echo "Building the application..."
-                }
+                echo "Building the project"
+                
             }
         }
-        stage('test') {
-            steps {
-                script {
-                    echo "Testing the application..."
+
+        stage("test") {
+            when {
+                expression {
+                    params.executeTests
                 }
             }
-        }
-        stage('deploy') {
             steps {
-                script {
-                    echo "Deploying the application..."
-                }
+                echo "Testing the project"
+            }
+        }
+
+        stage("deploy") {
+            steps {
+                
+                echo "deploying  version ${params.VERSION}"
             }
         }
     }
 }
+
+ # LOCATION OF ALL JENKINS DEFAULT ENV VARIBALES: URL/env-vars.html
+ # NECCESARY PLUGINS TO HANDLE CREDENTIALS: Credentials Binding Plugin AND credentials plugin 
