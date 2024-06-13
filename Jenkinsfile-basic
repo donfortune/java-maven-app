@@ -37,5 +37,3 @@ pipeline {
     }
 }
 
- # LOCATION OF ALL JENKINS DEFAULT ENV VARIBALES: URL/env-vars.html
- # NECCESARY PLUGINS TO HANDLE CREDENTIALS: Credentials Binding Plugin AND credentials plugin 
