@@ -41,14 +41,16 @@ pipeline {
                 message "select the environment to deploy to"
                 ok "Environment Selected!"
                 parameters {
-                    choice(name: 'ENVIRONMENT', choices: ['Dev', 'Prod', 'Testing'], description: 'ENV TO DEPLOY')
+                    choice(name: 'ONE', choices: ['Dev', 'Prod', 'Testing'], description: 'ENV TO DEPLOY')
+                    choice(name: 'TWO', choices: ['Dev', 'Prod', 'Testing'], description: 'ENV TO DEPLOY')
                 }
             }
             steps {
 
                 script {
                     groovy.deployApp()
-                    echo "Deploying to ${ENVIRONMENT}"
+                    echo "Deploying to ${ONE}"
+                    echo "Deploying to ${TWO}"
                 }
             }
         }
