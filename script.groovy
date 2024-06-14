@@ -8,3 +8,5 @@ def deployApp() {
         sh 'docker push donfortune1/my-repo:bukky-90.1'
     }
 }
+
+return this
