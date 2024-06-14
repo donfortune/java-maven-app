@@ -1,48 +1,37 @@
 #!/usr/bin/env groovy
-
-library identifier: 'jenkins-shared-library@master', retriever: modernSCM(
-        [$class: 'GitSCMSource',
-         remote: 'https://github.com/donfortune/java-maven-app/jenkins-shared-lib.git',
-         credentialsId: 'gitlab-credentials'
-        ]
-)
-
-
-def gv
-
+@Library('jenkins-shared-library') 
+def groovy
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
+    
     stages {
-        stage("init") {
+        stage('init') {
             steps {
                 script {
-                    gv = load "script.groovy"
+                    groovy = load 'script.groovy'
                 }
             }
         }
-        stage("build jar") {
+        stage('Build jar') {
             steps {
                 script {
                     buildJar()
                 }
             }
         }
-        stage("build and push image") {
+
+        stage('Build image') {
             steps {
                 script {
-                    buildImage 'donfortune1/demo-app:jma-3.0'
-                    dockerLogin()
-                    dockerPush 'donfortune1/demo-app:jma-3.0'
+                    buildDockerImage()
                 }
             }
         }
-        stage("deploy") {
+
+        stage('Deploy image') {
             steps {
                 script {
-                    gv.deployApp()
+                    groovy.deployApp()
                 }
             }
         }
