@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    tools {
+        maven 'Maven'
+    
+    }
+    stages {
+        stage('Build Jar File') {
+            steps {
+                script {
+                    echo "Building Jar File"
+                    sh 'mvn package'
+                }
+            }
+        }
+
+
+        stage('Build docker image') {
+            steps {
+                script {
+                    echo "Building Jar File"
+                    withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PWD', usernameVariable: 'USERNAME')]) {
+                        
+                        sh 'docker build -t donfortune1/my-repo:bukky-90.1 .'
+                        sh "docker login -u $USERNAME -p $PWD"
+                        sh 'docker push donfortune1/my-repo:bukky-90.1'
+}
+                    
+                }
+            }
+        }
+
+
+        stage('Deploy') {
+            steps {
+                script {
+                    echo "deploying the application"
+                }
+            }
+        }
+    }
+}
