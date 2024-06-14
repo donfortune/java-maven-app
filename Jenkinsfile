@@ -31,7 +31,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo 'Testing the application'
+                    echo 'Deploying the application'
                 }
             }
         }
