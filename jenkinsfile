@@ -1,61 +1,39 @@
-def groovy
 pipeline {
     agent any
-    parameters {
-        choice(name: 'VERSION', choices: ['1.2.4', '1.3.0', '1.5.0'], description: 'vERSION TO DEPLOY')
-        booleanParam(name: 'executeTest', defaultValue: true, description: 'Execute Tests')
-    }
     stages {
-        stage('init') {
+        stage ('test') {
             steps {
                 script {
-                    groovy = load 'script.groovy'
-                }
-            }
-        }
-        stage('Build') {
-            steps {
-                script {
-                    groovy.buildApp()
+                    echo 'Testing the application'
+                    echo "Executing pipeline for branch: ${BRANCH_NAME}"
                 }
             }
         }
 
-
-        stage('Test') {
+        stage ('Build') {
             when {
                 expression {
-                    params.executeTest
+                    BRANCH_NAME == 'master'
                 }
-            
             }
             steps {
                 script {
-                    groovy.testApp()
+                    echo 'Testing the application'
                 }
             }
         }
 
-        stage('Deploy') {
-            input {
-                message "select the environment to deploy to"
-                ok "Environment Selected!"
-                parameters {
-                    choice(name: 'ONE', choices: ['Dev', 'Prod', 'Testing'], description: 'ENV TO DEPLOY')
-                    choice(name: 'TWO', choices: ['Dev', 'Prod', 'Testing'], description: 'ENV TO DEPLOY')
+        stage ('Deploy') {
+            when {
+                expression {
+                    BRANCH_NAME == 'master'
                 }
             }
             steps {
-
                 script {
-                    groovy.deployApp()
-                    echo "Deploying to ${ONE}"
-                    echo "Deploying to ${TWO}"
+                    echo 'Testing the application'
                 }
             }
         }
-
-     
-
     }
 }
