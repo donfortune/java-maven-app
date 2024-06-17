@@ -25,7 +25,7 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    buildDockerImage('donfortune1/my-repo:bukky-100.1')
+                    buildDockerImage 'donfortune1/my-repo:bukky-100.1'
                 }
             }
         }
