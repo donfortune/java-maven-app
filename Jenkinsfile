@@ -4,8 +4,8 @@ pipeline {
     agent any
     tools {
         maven 'Maven'
+        
     }
-    
     stages {
         stage('init') {
             steps {
@@ -30,12 +30,12 @@ pipeline {
             }
         }
 
-        stage('Deploy image') {
-            steps {
-                script {
-                    groovy.deployApp()
-                }
-            }
-        }
+        // stage('Deploy image') {
+        //     steps {
+        //         script {
+        //             groovy.deployApp()
+        //         }
+        //     }
+        // }
     }
 }
