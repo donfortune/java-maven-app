@@ -1,11 +1,8 @@
-#!/usr/bin/env groovy
 @Library('jenkins-shared-library') 
 def groovy
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
+    
     stages {
         stage('init') {
             steps {
@@ -25,7 +22,7 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    buildDockerImage()
+                    buildDockerImage 'donfortune1/my-repo:bukky-100.1'
                 }
             }
         }
