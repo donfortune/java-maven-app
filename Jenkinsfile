@@ -30,12 +30,12 @@ pipeline {
             }
         }
 
-        // stage('Deploy image') {
-        //     steps {
-        //         script {
-        //             groovy.deployApp()
-        //         }
-        //     }
-        // }
+         stage('Deploy image') {
+             steps {
+                script {
+                    groovy.deployApp()
+                 }
+             }
+        }
     }
 }
