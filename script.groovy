@@ -13,7 +13,7 @@ def buildImage() {
 } 
 
 def deployApp() {
-    echo 'deploying all the application.....'
+    echo 'deploying of all the application.....'
 } 
 
 return this
